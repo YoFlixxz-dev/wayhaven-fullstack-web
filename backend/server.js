@@ -149,10 +149,10 @@ function protect(req, res, next) {
     return next();
   }
   
-  // Redirect browsers to login page
+  // Redirect browsers to login page with error parameter
   const acceptsHtml = req.headers.accept && req.headers.accept.indexOf('text/html') !== -1;
   if (acceptsHtml) {
-    return res.redirect('/admin-login.html');
+    return res.redirect('/admin-login.html?error=unauthorized');
   }
   
   // Return 401 for API requests
@@ -205,6 +205,14 @@ app.get('/api/faqs', async (req, res) => {
 });
 
 /* ------------- Admin: Login/Logout ------------- */
+
+// Check session status
+app.get('/admin/status', (req, res) => {
+  res.json({ 
+    authenticated: isAuthenticatedReq(req),
+    timestamp: new Date().toISOString()
+  });
+});
 
 // POST /admin/login
 app.post('/admin/login', async (req, res) => {

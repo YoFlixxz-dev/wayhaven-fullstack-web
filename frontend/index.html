@@ -306,7 +306,7 @@ body::before {
 }
 
 .faq-redirect-btn {
-  width: 80%;
+  width: 100%;
   padding: 10px 16px;
   border-radius: 10px;
   background: linear-gradient(90deg, var(--gold), var(--gold-dark));
@@ -419,12 +419,13 @@ body::before {
 
 /* Admin Login FAB */
 .admin-login-fab {
-  position: fixed;
+  position: static; /* changed from static */
   bottom: 20px;
   right: 20px;
   z-index: 100;
 }
-.admin-login-fab a {
+
+.site-footer .admin-login-fab a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -441,11 +442,23 @@ body::before {
   backdrop-filter: blur(8px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   transition: all 0.2s ease;
+  position: absolute;   /* placed relative to .site-footer */
+  right: 48px;          /* horizontal inset from footer's right edge */
+  bottom: 100px;         /* vertical inset from footer's bottom edge */
+  z-index: 60; 
 }
+
 .admin-login-fab a:hover {
   background: rgba(0, 0, 0, 0.8);
   transform: translateY(-2px) scale(1.02);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 600px) {
+  .site-footer .admin-login-fab {
+    right: 20px;
+    bottom: 18px;
+  }
 }
 
 /* Support Discord Button */
@@ -1049,21 +1062,17 @@ function fallbackCopy(btn, originalText) {
 /* === BLOG FUNCTIONS === */
 async function fetchBlogsFromAPI() {
   try {
-    const storedPosts = localStorage.getItem('wayhaven_posts');
-    if (storedPosts) return JSON.parse(storedPosts);
-    
     const res = await fetch('/api/blogs', { cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
       if (Array.isArray(data)) {
-        localStorage.setItem('wayhaven_posts', JSON.stringify(data));
         return data;
       }
     }
   } catch (e) {
     console.error('Blog fetch error:', e);
   }
-  return null;
+  return [];
 }
 
 function sortNewestFirst(posts) {
@@ -1163,7 +1172,6 @@ async function renderBlogs(postsPage = null, page = 1) {
   
   if (!postsPage) {
     let posts = await fetchBlogsFromAPI();
-    if (!posts) posts = demoPosts();
     posts = sortNewestFirst(posts);
     currentData = posts;
   } else {
@@ -1217,9 +1225,19 @@ async function renderBlogs(postsPage = null, page = 1) {
 }
 
 /* === FAQ FUNCTIONS === */
-function fetchFAQsFromStorage() {
-  const stored = localStorage.getItem('wayhaven_faqs');
-  return stored ? JSON.parse(stored) : [];
+async function fetchFAQsFromAPI() {
+  try {
+    const res = await fetch('/api/faqs', { cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        return data;
+      }
+    }
+  } catch (e) {
+    console.error('FAQ fetch error:', e);
+  }
+  return [];
 }
 
 function sortNewestFirstFAQs(faqs) {
@@ -1258,12 +1276,12 @@ function createFAQItem(faq) {
   return item;
 }
 
-function renderFAQs() {
+async function renderFAQs() {
   const faqListEl = document.getElementById('faqList');
   if (!faqListEl) return;
   
   faqListEl.innerHTML = '';
-  let faqs = fetchFAQsFromStorage();
+  let faqs = await fetchFAQsFromAPI();
   faqs = sortNewestFirstFAQs(faqs);
   
   if (faqs.length === 0) {
@@ -1291,12 +1309,12 @@ function renderFAQs() {
   });
 }
 
-function renderSupportFAQs() {
+async function renderSupportFAQs() {
   const faqListEl = document.getElementById('supportFaqList');
   if (!faqListEl) return;
   
   faqListEl.innerHTML = '';
-  let faqs = fetchFAQsFromStorage();
+  let faqs = await fetchFAQsFromAPI();
   faqs = sortNewestFirstFAQs(faqs);
 
   if (faqs.length === 0) {
@@ -1324,8 +1342,8 @@ function renderSupportFAQs() {
   });
 }
 
+// Update the DOMContentLoaded event listener to call renderSupportFAQs
 document.addEventListener('DOMContentLoaded', renderSupportFAQs);
-
 
 /* === VIDEO FUNCTIONS === */
 function setAboutVideo(url) {

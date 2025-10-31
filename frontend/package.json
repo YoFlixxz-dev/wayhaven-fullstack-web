@@ -1,0 +1,25 @@
+{
+  "name": "wayhaven-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "WayHaven frontend (static) — intended for Netlify",
+  "scripts": {
+    "start": "serve -s . -l 5000",
+    "generate-api-config": "node scripts/generate-api-config.js",
+    "prebuild": "npm run generate-api-config || true",
+    "build": "echo \"No build step: static site\"",
+    "lint": "eslint . || true",
+    "format": "prettier --write . || true"
+  },
+  "dependencies": {
+    "serve": "^14.2.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.8",
+    "eslint": "^8.45.0"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "license": "MIT"
+}

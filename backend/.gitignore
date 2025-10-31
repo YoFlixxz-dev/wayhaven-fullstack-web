@@ -1,0 +1,58 @@
+# Node modules
+/node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-error.log*
+
+# Runtime files
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Runtime / temp
+tmp/
+temp/
+.cache/
+
+# Build / coverage
+dist/
+build/
+coverage/
+.nyc_output/
+
+# Environment files (do NOT commit secrets)
+.env
+.env.*.local
+.env.production
+.env.test
+
+# IDEs / editors
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Process managers / monitoring (pm2)
+pm2.log
+.pm2/
+
+# Vercel (.vercel folder) local config
+.vercel/
+
+# Docker
+docker-compose.override.yml
+.env.docker
+
+# Misc
+*.tgz
+node_repl_history
+
+# If you use other generated artifacts (e.g. certs, private keys), ignore them:
+# certs/
+# keys/

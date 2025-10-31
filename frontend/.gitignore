@@ -1,0 +1,58 @@
+# Node modules and package caches
+/node_modules/
+.pnpm-store/
+.pnpm-debug.log
+npm-debug.log*
+yarn-error.log
+
+# Build outputs
+/dist/
+/build/
+.out/
+.next/
+.nuxt/
+.public/
+.cache/
+.cache-loader/
+.parcel-cache/
+
+# Generated API config (if you generate this at build time)
+# Remove this line if you commit the file intentionally.
+public/api-config.js
+
+# Environment files (do NOT commit secrets)
+.env
+.env.*.local
+.env.local
+.env.production
+.env.test
+
+# System files
+.DS_Store
+Thumbs.db
+
+# IDEs / editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Logs
+logs/
+*.log
+
+# Netlify / Vercel local metadata (optional)
+.netlify/
+.vercel/
+
+# Misc
+.sass-cache/
+coverage/
+*.tgz
+
+# NOTE: lockfiles are generally good to commit (package-lock.json / yarn.lock)
+# If you intentionally want to ignore them, add them below (not recommended)
+# package-lock.json
+# yarn.lock

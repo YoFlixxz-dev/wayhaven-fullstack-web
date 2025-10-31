@@ -306,7 +306,7 @@ body::before {
 }
 
 .faq-redirect-btn {
-  width: 100%;
+  width: 80%;
   padding: 10px 16px;
   border-radius: 10px;
   background: linear-gradient(90deg, var(--gold), var(--gold-dark));
@@ -1064,20 +1064,6 @@ async function fetchBlogsFromAPI() {
     console.error('Blog fetch error:', e);
   }
   return null;
-}
-
-function demoPosts() {
-  return [
-    { id: "20251014-update1", title: "🔥 Server Update: New Features", createdAt: "2025-10-14T10:00:00Z", excerpt: "Exciting new features added to Way Haven including custom enchants and economy tweaks.", image: "https://i.postimg.cc/8z6k9qv1/mc-siege.jpg", pinned: true },
-    { id: "20251013-event1", title: "🏆 Weekend Event Announcement", createdAt: "2025-10-13T14:30:00Z", excerpt: "Join our epic weekend siege event with double rewards and special guests!", image: "https://i.postimg.cc/8z6k9qv1/mc-siege.jpg", pinned: true },
-    { id: "20251012-tips1", title: "💡 Beginner Building Tips", createdAt: "2025-10-12T09:15:00Z", excerpt: "Master the art of world-building with these essential tips for new players.", image: "https://i.postimg.cc/8z6k9qv1/mc-siege.jpg", pinned: false },
-    { id: "20251011-war1", title: "⚔️ War Strategies Guide", createdAt: "2025-10-11T16:45:00Z", excerpt: "Advanced strategies for dominating in Way Haven wars and battles.", image: "https://i.postimg.cc/8z6k9qv1/mc-siege.jpg", pinned: false },
-    { id: "20251010-patch1", title: "🛠️ Hotfix Patch Notes", createdAt: "2025-10-10T12:20:00Z", excerpt: "Quick fixes for recent bugs and performance improvements deployed.", image: "https://i.postimg.cc/8z6k9qv1/mc-siege.jpg", pinned: false },
-    { id: "20251009-community1", title: "👥 Community Spotlight", createdAt: "2025-10-09T18:00:00Z", excerpt: "Featuring amazing builds from our top community members this week.", image: "https://i.postimg.cc/8z6k9qv1/mc-siege.jpg", pinned: false },
-    { id: "20251008-discord1", title: "💬 Discord Role Updates", createdAt: "2025-10-08T11:30:00Z", excerpt: "New roles and perks added to our Discord for active players.", image: "https://i.postimg.cc/8z6k9qv1/mc-siege.jpg", pinned: false },
-    { id: "20251007-rules1", title: "📜 Rule Clarifications", createdAt: "2025-10-07T15:10:00Z", excerpt: "Clearing up common questions about server rules and guidelines.", image: "https://i.postimg.cc/8z6k9qv1/mc-siege.jpg", pinned: false },
-    { id: "20251006-welcome", title: "🏰 Welcome to Way Haven", createdAt: "2025-10-06T20:00:00Z", excerpt: "Welcome to Way Haven – community-driven survival with events, shops and friendly staff. Join our Discord for help and updates.", image: "https://i.postimg.cc/8z6k9qv1/mc-siege.jpg", pinned: false }
-  ];
 }
 
 function sortNewestFirst(posts) {

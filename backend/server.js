@@ -8,8 +8,15 @@ const basicAuth = require('express-basic-auth');
 const multer = require('multer');
 const fs = require('fs').promises;
 const path = require('path');
-const { v4: uuidv4 } = require('uuid');
 const session = require('express-session');
+
+function uuidv4() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
 
 // quick env debug (safe: does NOT print the token)
 console.log('ENV:', 'DISCORD_TOKEN', process.env.DISCORD_TOKEN ? 'OK' : 'MISSING', 'DISCORD_GUILD_ID', process.env.DISCORD_GUILD_ID ? process.env.DISCORD_GUILD_ID : 'MISSING');
@@ -21,7 +28,7 @@ const SESSION_SECRET = process.env.SESSION_SECRET;
 
 const app = express();
 
-const PUBLIC_DIR = path.join(__dirname, 'public');
+const PUBLIC_DIR = path.join(__dirname, '.');
 const DATA_DIR = path.join(__dirname, 'data');
 const BLOG_FILE = path.join(DATA_DIR, 'blogs.json');
 const FAQ_FILE = path.join(DATA_DIR, 'faqs.json');
@@ -359,5 +366,11 @@ app.get('/api/discord/online', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'map.html'));
   });
 
-  app.listen(PORT, () => console.log(`Server listening on http://localhost:${PORT}`));
+app.get('/', (req, res) => {
+  res.send('✅ Wayhaven Backend is running');
+});
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`✅ Wayhaven backend is live on port ${PORT}`);
+});
 })();

@@ -1,2 +1,3 @@
-/api/*  https://REPLACE_WITH_VERCEL_URL/api/:splat  200
-/*     /index.html  200
+# frontend/_redirects
+/api/*   https://wayhaven-back.vercel.app/api/:splat  200
+/*      /index.html  200

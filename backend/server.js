@@ -469,7 +469,7 @@ app.get('/admin-login.html', (req, res) => {
 });
 
 app.get('/admin/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'admin-login.html'));
+  res.sendFile(path.join(PUBLIC_DIR, 'admin-login.html'));
 });
 
 // Serve admin panel (redirect from old URL)
@@ -478,7 +478,7 @@ app.get('/admin.html', (req, res) => {
 });
 
 app.get('/admin', protect, (req, res) => {
-  res.sendFile(path.join(__dirname, 'admin.html'));
+  res.sendFile(path.join(PUBLIC_DIR, 'admin.html'));
 });
 
 // 404 handler

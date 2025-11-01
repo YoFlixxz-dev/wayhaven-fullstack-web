@@ -463,6 +463,24 @@ app.get('/map', (req, res) => {
   res.sendFile(path.join(PUBLIC_DIR, 'map.html'));
 });
 
+// Serve admin login page (redirect from old URL)
+app.get('/admin-login.html', (req, res) => {
+  res.redirect(301, '/admin/login');
+});
+
+app.get('/admin/login', (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin-login.html'));
+});
+
+// Serve admin panel (redirect from old URL)
+app.get('/admin.html', (req, res) => {
+  res.redirect(301, '/admin');
+});
+
+app.get('/admin', protect, (req, res) => {
+  res.sendFile(path.join(__dirname, 'admin.html'));
+});
+
 // 404 handler
 app.use((req, res) => {
   res.status(404).json({ error: 'Not found' });

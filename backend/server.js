@@ -152,7 +152,7 @@ function protect(req, res, next) {
   // Redirect browsers to login page with error parameter
   const acceptsHtml = req.headers.accept && req.headers.accept.indexOf('text/html') !== -1;
   if (acceptsHtml) {
-    return res.redirect('/admin-login.html?error=unauthorized');
+    return res.redirect('/admin/login?error=unauthorized');
   }
   
   // Return 401 for API requests
@@ -221,7 +221,7 @@ app.post('/admin/login', async (req, res) => {
   
   if (user === ADMIN_USER && pass === ADMIN_PASS) {
     req.session.authenticated = true;
-    return res.redirect('/admin.html');
+    return res.redirect('/admin');
   }
   
   res.status(401).send('Invalid credentials. Please try again.');
@@ -477,6 +477,7 @@ app.get('/admin.html', (req, res) => {
   res.redirect(301, '/admin');
 });
 
+// PROTECTED - Require authentication
 app.get('/admin', protect, (req, res) => {
   res.sendFile(path.join(PUBLIC_DIR, 'admin.html'));
 });

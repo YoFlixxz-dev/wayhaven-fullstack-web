@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Wayhaven</title>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap" rel="stylesheet">
+<!-- Favicon -->
+<link rel="icon" href="https://i.postimg.cc/52yDDQxN/castle-trans2.png" type="image/png">
+<link rel="apple-touch-icon" href="https://i.postimg.cc/52yDDQxN/castle-trans2.png">
+<link rel="shortcut icon" href="https://i.postimg.cc/52yDDQxN/castle-trans2.png">
+<style>
+:root{
+  --accent:#3b82f6;
+  --gold:#f6c34d;
+  --gold-dark:#f59e0b;
+  --muted:#94a3b8;
+  --btn-dark:rgba(0,0,0,0.55);
+  --btn-border:rgba(255,255,255,0.06);
+}
+
+/* reset */
+* {margin:0;padding:0;box-sizing:border-box}
+html, body {height:100%}
+body {
+  font-family:"Comfortaa",sans-serif;
+  color:#e6eef7;
+  background:url('https://i.pinimg.com/1200x/96/3d/2d/963d2d43067411595bef4b44e6be0163.jpg') center/cover fixed;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  -webkit-font-smoothing:antialiased;
+}
+body::before {
+  content:"";
+  position:fixed; inset:0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.42), rgba(0,0,0,0.62));
+  pointer-events:none;
+  z-index:0;
+}
+
+/* topbar */
+.topbar {
+  position:sticky; top:0; z-index:60;
+  height:56px; display:flex; align-items:center; justify-content:center;
+  background: linear-gradient(180deg, rgba(0,0,0,0.24), rgba(0,0,0,0.12));
+  border-bottom:1px solid rgba(255,255,255,0.03);
+  backdrop-filter: blur(6px);
+}
+
+/* container */
+.container{ max-width:1200px; margin:0 auto; width:100%; padding:14px; z-index:5; position:relative; }
+
+/* HERO */
+.hero {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:36px 60px; position:relative; gap:12px; z-index:5;
+}
+.info-card {
+  position:absolute; top:18px; padding:10px 12px; border-radius:12px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.42), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.04); backdrop-filter: blur(8px);
+  box-shadow: 0 12px 34px rgba(0,0,0,0.55); color:var(--muted); min-width:160px;
+  font-size:0.92rem;
+}
+.info-left{ left:18px }
+.info-right{ right:18px; text-align:center }
+.info-card .label{ font-size:0.78rem; color:var(--muted) }
+.info-card .value{ font-weight:800; color:white; margin-top:6px }
+
+/* title image inside hero */
+.title-img { max-width:420px; width:44%; height:auto; display:block; margin:6px auto; }
+
+/* redirect buttons */
+.redirect-row{
+  margin-top:12px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; font-family:inherit;
+}
+.redirect-btn{
+ font-family: "Comfortaa", "Segoe UI", Roboto, Arial, sans-serif;
+ font-weight: 700;
+ font-size: 1rem;
+ letter-spacing: 0.35px;
+  padding:12px 22px;
+  border-radius:999px;
+  cursor:pointer;
+  color:#fff;
+  background: var(--btn-dark);
+  border: 1px solid var(--btn-border);
+  min-width:140px;
+  text-align:center;
+  transition: transform .14s ease, box-shadow .14s ease, background .14s ease;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+}
+.redirect-btn:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 16px 36px rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.5);
+}
+.redirect-btn.active{
+  border: 2px solid var(--gold);
+  box-shadow: 0 20px 50px rgba(251,191,36,0.12), 0 6px 18px rgba(0,0,0,0.6);
+  background: linear-gradient(180deg, rgba(0,0,0,0.5), rgba(255,255,255,0.02));
+}
+
+/* layout */
+.layout { display:grid; grid-template-columns: 2fr 1fr; gap:20px; margin-top:20px; align-items:start; }
+.card {
+  background: linear-gradient(180deg, rgba(0,0,0,0.36), rgba(255,255,255,0.01));
+  border-radius:12px; border:1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 14px 42px rgba(0,0,0,0.6); padding:16px; backdrop-filter: blur(8px);
+}
+
+.rule-link a {
+  text-decoration: underline;
+  color: #fff;
+}
+.rule-link .link-desc {
+  font-size:0.90rem;
+  color: var(--muted);
+  margin-top:4px;
+}
+
+/* SERVER INFO */
+.server-info { display:flex; gap:14px; align-items:flex-start; margin-bottom:16px; flex-direction:column; }
+.server-info .left { flex:1; min-width:260px }
+.video-placeholder { width:100%; height:480px; border-radius:10px; overflow:hidden; background:rgba(255,255,255,0.02); display:flex; align-items:center; justify-content:center; color:var(--muted); border:1px solid rgba(255,255,255,0.03); }
+.video-placeholder iframe { width:100%; height:100%; border:0; display:block; }
+
+/* ABOUT SECTION */
+.about-server { margin-top:14px; display:flex; flex-direction:column; gap:10px }
+.about-server h4{ margin:0; color:var(--gold); font-weight:800 }
+.about-server p{ margin:0; color:#cbd5e1; line-height:1.6 }
+
+/* BLOG CARD */
+.blog-list { display:flex; flex-direction:column; gap:18px; }
+.blog-card {
+  display:flex; gap:16px; align-items:flex-start;
+  background: linear-gradient(180deg, rgba(0,0,0,0.36), rgba(255,255,255,0.01));
+  border-radius:14px; padding:14px; border:1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.55);
+  opacity:0; transform: translateY(8px);
+  transition: opacity .28s ease, transform .28s ease;
+}
+.blog-card.show{ opacity:1; transform:none }
+.blog-card .thumb {
+  width:360px; height:260px; border-radius:10px; flex: 0 0 360px;
+  background-size:cover; background-position:center; border:1px solid rgba(0,0,0,0.4);
+}
+.blog-card .content { flex:1; display:flex; flex-direction:column; gap:10px; min-width:0; }
+.blog-card .meta { color:var(--muted); font-size:0.92rem; }
+.blog-card h3 { margin:0; font-size:1.6rem; color:white; line-height:1.05; font-weight:800; }
+.blog-card p { margin:0; color:#cbd5e1; line-height:1.6; }
+
+.pinned-badge { 
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px 6px 24px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(246,195,77,0.2), rgba(245,158,11,0.2));
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  border: 1px solid rgba(246,195,77,0.3);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.pinned-badge::before {
+  content: '📌';
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+}
+.pinned-section { margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+
+.pagination { 
+  display: flex; 
+  gap: 8px; 
+  justify-content: center; 
+  margin-top: 8px; 
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.page-btn { 
+  padding: 8px 12px; 
+  border-radius: 999px; 
+  cursor: pointer; 
+  border: 1px solid rgba(255,255,255,0.04); 
+  background: rgba(0,0,0,0.25);
+  color: #e6eef7; 
+  font-weight: 800; 
+  font-family: 'Comfortaa', sans-serif; 
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  min-width: 44px;
+  text-align: center;
+  backdrop-filter: blur(6px);
+}
+
+.page-btn:hover { 
+  transform: translateY(-3px); 
+  box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+}
+
+.page-btn.active { 
+  background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+  color: #0b0b0b;
+  border: none;
+  box-shadow: 0 8px 24px rgba(246,195,77,0.25);
+}
+
+.arrow-btn { 
+  font-size: 1.15rem; 
+  padding: 8px 10px;
+  font-weight: 800;
+}
+
+/* Current page number display in middle */
+.page-number-display {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+  color: #0b0b0b;
+  font-weight: 900;
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 1rem;
+  box-shadow: 0 8px 24px rgba(246,195,77,0.25);
+  min-width: 44px;
+  justify-content: center;
+}
+
+/* FAQ SECTION */
+.faq-section {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.faq-section h2 {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 1.45rem;
+  margin: 0 0 18px 0;
+  color: var(--gold);
+  font-weight: 800;
+  text-align: center;
+}
+.faq-list {
+  width: 100%;
+  max-width: 640px; /* Adjust this value to control how wide the FAQ boxes are */
+}
+.faq-item {
+  background: linear-gradient(180deg, rgba(0,0,0,0.36), rgba(255,255,255,0.01));
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.55);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.faq-item:hover {
+  box-shadow: 0 18px 48px rgba(0,0,0,0.65);
+  transform: translateY(-2px);
+}
+.faq-question {
+  padding: 18px 20px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  background: linear-gradient(90deg, rgba(59,130,246,0.1), rgba(0,0,0,0.2));
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+.faq-question:hover {
+  background: linear-gradient(90deg, rgba(59,130,246,0.15), rgba(0,0,0,0.25));
+}
+.faq-question::after {
+  content: '▼';
+  font-size: 0.8rem;
+  color: var(--gold);
+  transition: transform 0.3s ease;
+}
+.faq-item.expanded .faq-question::after {
+  transform: rotate(180deg);
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: rgba(0,0,0,0.1);
+}
+.faq-item.expanded .faq-answer {
+  max-height: 500px;
+}
+.faq-answer-inner {
+  padding: 20px;
+  color: #cbd5e1;
+  line-height: 1.6;
+  font-size: 0.98rem;
+}
+
+.faq-redirect-btn {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+  color: #111;
+  font-weight: 800;
+  font-family: 'Comfortaa', sans-serif;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 6px 18px rgba(246,195,77,0.2);
+  font-size: 0.95rem;
+}
+
+.faq-redirect-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 10px 28px rgba(246,195,77,0.3);
+}
+
+/* SIDEBAR */
+.sidebar { display:flex; flex-direction:column; gap:12px; }
+.discord { display:flex; flex-direction:column; gap:10px; align-items:center; text-align:center; padding:14px; border-radius:12px; background: linear-gradient(180deg, rgba(0,0,0,0.36), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); backdrop-filter: blur(8px); }
+.discord h4{ margin:0; font-size:1.05rem; display:flex; gap:8px; align-items:center; justify-content:center; font-family: "Comfortaa", sans-serif; }
+.discord .count{ font-weight:900; color:#7fb1ff; font-size:1.2rem }
+.discord .join{ padding:8px 12px; border-radius:10px; background:#5865f2; color:#fff; font-weight:800; text-decoration:none; border:1px solid rgba(88,101,242,0.12); transition: transform .15s ease, box-shadow .15s ease; font-family: "Comfortaa", sans-serif; }
+.discord .join:hover{ transform: translateY(-6px) scale(1.02); box-shadow: 0 18px 40px rgba(88,101,242,0.25); }
+
+.how-join { padding:12px; border-radius:12px; font-size:0.98rem; color:#dbeafe; background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03); backdrop-filter: blur(6px); font-family: "Comfortaa", "Segoe UI", Roboto, Arial, sans-serif; }
+.how-join h3 { margin:0 0 8px 0; color:var(--gold); font-weight:800; font-size:1.05rem; }
+.how-join .step { display:flex; align-items:flex-start; gap:10px; padding:6px 0; color:var(--muted); }
+.how-join .badge { min-width:34px; height:34px; border-radius:8px; background: rgba(255,255,255,0.03); display:flex; align-items:center; justify-content:center; font-weight:900; color:#fff; }
+
+.rules-guides { padding:12px; border-radius:12px; font-size:0.98rem; color:#dbeafe; background: linear-gradient(180deg, rgba(0,0,0,0.28), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03); backdrop-filter: blur(6px); }
+.rules-guides h4{ margin:0 0 8px 0; color:var(--gold); font-weight:800 }
+.rules-guides a{ display:block; text-decoration:none; color:#e6eef7; padding:8px 0 }
+
+.socials { padding:12px; border-radius:12px; font-size:0.98rem; color:#dbeafe; background: linear-gradient(180deg, rgba(0,0,0,0.22), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.03); }
+.socials a{ display:flex; align-items:center; gap:8px; text-decoration:none; color:#e6eef7; padding:8px 0 }
+.socials img { width:24px; height:24px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+.socials .redirect-icon { width:16px; height:16px; opacity:0.7; }
+
+.support-box { max-width:1000px; margin:22px auto; padding:20px; border-radius:12px; background: linear-gradient(180deg, rgba(0,0,0,0.38), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); backdrop-filter: blur(8px); box-shadow: 0 20px 60px rgba(0,0,0,0.7); }
+
+/* Confirm modal styling */
+.overlay { position:fixed; inset:0; display:none; align-items:center; justify-content:center; z-index:120; background:rgba(0,0,0,0.6); }
+.overlay.show{ display:flex }
+
+/* IP Modal */
+.ip-modal {
+  width:420px; max-width:92%; border-radius:14px; padding:24px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.42), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.04);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  color:#e6eef7; text-align:center;
+}
+.ip-modal .title { font-weight:800; font-size:1.2rem; margin-bottom:12px; color:white; }
+.ip-modal .ip { 
+  font-size:1.5rem; font-weight:900; color:var(--gold); 
+  background: rgba(0,0,0,0.3); border-radius:12px; padding:12px 16px; 
+  margin:16px 0; border:1px solid rgba(246,195,77,0.2);
+  word-break: break-all; cursor: pointer; transition: background 0.2s ease;
+}
+.ip-modal .ip:hover { background: rgba(0,0,0,0.4); }
+.ip-modal .desc { color:var(--muted); font-size:0.95rem; margin-bottom:20px; line-height:1.5; }
+.ip-modal .actions { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.ip-modal .btn { 
+  padding:10px 20px; border-radius:999px; border:0; cursor:pointer; font-weight:800; 
+  font-family: 'Comfortaa', sans-serif; min-width:120px; transition: all 0.2s ease;
+  backdrop-filter: blur(6px);
+}
+.ip-modal .btn-copy { 
+  background: linear-gradient(90deg, var(--gold), var(--gold-dark)); 
+  color:#111; box-shadow: 0 8px 24px rgba(246,195,77,0.2); 
+}
+.ip-modal .btn-copy:hover { 
+  transform: translateY(-2px); box-shadow: 0 12px 32px rgba(246,195,77,0.3); 
+}
+.ip-modal .btn-close { 
+  background: rgba(0,0,0,0.4); color:#e6eef7; border:1px solid rgba(255,255,255,0.1); 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.ip-modal .btn-close:hover { 
+  background: rgba(0,0,0,0.5); transform: translateY(-2px); 
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+/* small responsive */
+@media (max-width:900px){
+  .layout{ grid-template-columns: 1fr; gap:12px }
+  .info-left, .info-right{ display:none }
+  .blog-card { flex-direction:column; }
+  .blog-card .thumb { width:100%; height:220px; flex:none; }
+  .title-img{ width:66%; max-width:320px; }
+  .video-placeholder{ height:260px }
+  .ip-modal { width:90%; padding:20px; }
+  .ip-modal .ip { font-size:1.3rem; }
+}
+
+.count {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.count-icon {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+/* Admin Login FAB */
+.admin-login-fab {
+  position: static; /* changed from static */
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+}
+
+.site-footer .admin-login-fab a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  padding: 10px 16px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #e6eef7;
+  text-decoration: none;
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease;
+  position: absolute;   /* placed relative to .site-footer */
+  right: 48px;          /* horizontal inset from footer's right edge */
+  bottom: 100px;         /* vertical inset from footer's bottom edge */
+  z-index: 60; 
+}
+
+.admin-login-fab a:hover {
+  background: rgba(0, 0, 0, 0.8);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 600px) {
+  .site-footer .admin-login-fab {
+    right: 20px;
+    bottom: 18px;
+  }
+}
+
+/* Support Discord Button */
+.support-discord {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 16px;
+  background: #5865f2;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-family: 'Comfortaa', sans-serif;
+  margin-top: 12px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: 1px solid rgba(88, 101, 242, 0.12);
+}
+.support-discord:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(88, 101, 242, 0.25);
+}
+
+.castle-logo {
+  display: block;
+  margin: 30px auto -10px auto;
+  width: 400px;
+  height: auto;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+.site-footer {
+  position: relative;
+  z-index: 10;
+  margin-top: 60px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.8));
+  border-top: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+}
+
+.footer-banner {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.footer-banner-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.footer-banner-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-banner-text {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+  text-align: center;
+  padding: 0 20px;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 20px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 40px;
+  margin-bottom: 40px;
+}
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-heading {
+  font-family: 'Comfortaa', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+
+.footer-about-text {
+  color: #fff;
+  font-weight: 700;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.footer-about-desc {
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin: 8px 0 0 0;
+}
+
+.footer-language {
+  margin-top: 12px;
+}
+
+.language-select {
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #e6eef7;
+  font-family: 'Comfortaa', sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.language-select:hover {
+  background: rgba(0,0,0,0.6);
+  border-color: rgba(255,255,255,0.2);
+}
+
+.language-select:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.footer-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-menu li a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s ease, padding-left 0.2s ease;
+  display: inline-block;
+  font-weight: 600;
+}
+
+.footer-menu li a:hover {
+  color: #fff;
+  padding-left: 6px;
+}
+
+.footer-social {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-social li a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+  font-weight: 600;
+}
+
+.footer-social li a:hover {
+  color: #fff;
+  transform: translateX(4px);
+}
+
+.footer-social-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.footer-contact-item a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-contact-item a:hover {
+  color: #fff;
+}
+
+.footer-contact-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.footer-bottom {
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-powered {
+  color: var(--muted);
+}
+
+.footer-powered strong {
+  color: var(--gold);
+  font-weight: 800;
+}
+
+@media (max-width: 768px) {
+  .footer-banner {
+    height: 150px;
+  }
+  
+  .footer-banner-text {
+    font-size: 1.8rem;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <!-- IMAGE ABOVE HERO -->
+    <img src="https://i.postimg.cc/52yDDQxN/castle-trans2.png" alt="Way Haven logo" class="castle-logo">
+
+    <!-- HERO -->
+    <header class="hero card" role="banner" aria-label="Hero area">
+      <div class="info-card info-left" aria-hidden="true">
+        <div class="label">🎮 PLAYERS</div>
+        <div class="value" id="playersOnline">0 / ?</div>
+      </div>
+      <div class="info-card info-right" aria-hidden="true">
+        <div class="label">🌐 SERVER IP</div>
+        <div class="value" id="headerIP" title="Click to copy or open">play.wayhaven.net</div>
+      </div>
+
+      <!-- TITLE IMAGE -->
+      <img src="https://i.postimg.cc/Y9cWJPWm/text-trans2.png" alt="Way Haven Title" class="title-img">
+
+      <div class="redirect-row" aria-label="Primary navigation">
+        <button id="redirectHome" class="redirect-btn" onclick="navTo('/home', this)">Home</button>
+        <button id="redirectStore" class="redirect-btn" onclick="window.open('https://store.wayhaven.net/','_blank','noopener')">Store</button>
+        <button id="redirectMap" class="redirect-btn" onclick="window.location.href='/map'">Map</button>
+        <button id="redirectSupport" class="redirect-btn" onclick="navTo('/support', this)">Support</button>
+      </div>
+    </header>
+
+    <!-- HOME CONTENT -->
+    <div id="home" class="page-section">
+      <div class="layout" style="margin-top:18px;">
+        <main aria-live="polite">
+          <section class="card server-info" aria-label="Server information">
+            <div class="left">
+              <h3 style="margin:0 0 6px 0">Welcome to Wayhaven</h3>
+              <div style="color:var(--muted); margin-bottom:10px">
+                Watch the trailer to learn about the upcoming release of Wayhaven, an exciting worldbuilding geo-politics minecraft experience.
+              </div>
+              <div id="videoArea" class="video-placeholder" aria-hidden="false">
+                <div id="videoEmptyLabel" style="text-align:center; padding:6px;">No about video set. You can set a URL from the code.</div>
+              </div>
+              <div style="margin-top:12px; color:var(--muted); font-size:0.98rem">
+                Server IP: <strong id="inlineServerIp">play.wayhaven.net</strong>
+                <button class="page-btn" style="margin-left:8px; padding:6px 8px; border-radius:8px;" id="copyInlineIp">Copy</button>
+              </div>
+              <div class="about-server card" style="margin-top:14px; padding:12px;">
+                <h4>About our server</h4>
+                <div style="margin-top:10px">
+                  <strong>What is Wayhaven?</strong>
+                  <p>In Wayhaven players can create towns and nations, recruit members, engage in diplomacy and war. Players can shape the world around them, creating their own stories and legacies of empires which rose and fell.</p>
+                </div>
+                <div style="margin-top:10px">
+                  <strong>What makes us different?</strong>
+                  <p>We've spent months planning and developing this server, including researching new features and hiring additional developers. We are confident you will enjoy our selection of custom plugins, including religions, character customisation and a traits system.</p>
+                </div>
+                <div style="margin-top:10px">
+                  <strong>Who can play?</strong>
+                  <p>Our server is available to both Java and Bedrock players – using a Geyser port. For Java any clients using 1.20.x or 1.21.x versions can join, however 1.21.4 is recommended for the best playing experience.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+          <div style="margin-top:18px;">
+            <h2 style="font-family: 'Comfortaa', sans-serif; font-size:1.45rem; margin:0 0 12px 0; color:var(--gold); font-weight:800">Announcements</h2>
+          </div>
+          <div id="pinnedArea" class="pinned-section" aria-live="polite"></div>
+          <div id="blogListWrapper">
+            <div id="blogList" class="blog-list"></div>
+            <div id="pagination" class="pagination" aria-hidden="true" role="navigation" aria-label="Blog pages"></div>
+          </div>
+        </main>
+        <aside class="sidebar" aria-label="Sidebar widgets">
+          <div class="discord" aria-hidden="false">
+            <h4>WayHaven</h4>
+            <div class="count" id="discordCount">
+              <img src="https://i.postimg.cc/yY6H0PMx/member-icon1.png" alt="Discord logo" class="count-icon">
+              <span id="discordNumber">---</span>
+            </div>
+            <div style="color:var(--muted); font-size:0.95rem">Online members</div>
+            <a class="join" id="homeJoinDiscord" href="https://discord.gg/pWhEzjR5Gq" target="_blank" rel="noopener">Join Discord</a>
+          </div>
+          <div class="how-join" aria-hidden="false">
+            <h3>How to Join</h3>
+            <div class="step">
+              <div class="badge">1</div>
+              <p><strong>Java:</strong> Open Minecraft Java → <em>Multiplayer</em> → <em>Add Server</em> → enter <code>play.wayhaven.net</code></p>
+            </div>
+            <div class="step">
+              <div class="badge">2</div>
+              <p><strong>Bedrock:</strong> Open Bedrock → <em>Servers</em> → <em>Add Server</em> → set IP <code>play.wayhaven.net</code> and Port <code>20011</code></p>
+            </div>
+          </div>
+          <div class="rules-guides">
+            <h4>Rules & Guides</h4>
+            <div class="rule-link">
+              <a href="https://docs.google.com/document/d/17OsLxWvsWQhkQ4qwLC_ypUiYOpJxJ_OBN5MZSIOXVOo/" target="_blank" rel="noopener">📜 General rules</a>
+              <div class="link-desc">Click to view the general rules</div>
+            </div>
+            <div class="rule-link" style="margin-top:8px;">
+              <a href="https://docs.google.com/document/d/1zIB1eT0ZlMRQhUoo-3eUOrK3Sptf0CB4MmtiqAvwmw4/edit?usp=sharing" target="_blank" rel="noopener">⚔️ War Guide</a>
+              <div class="link-desc">Click to view the war guide</div>
+            </div>
+          </div>
+          <div class="socials">
+            <h4 style="margin:0 0 8px 0; color:var(--gold);">Our Socials</h4>
+            <a href="https://www.youtube.com/@WayHavenMC" target="_blank" rel="noopener">
+              <img src="https://i.postimg.cc/TPhTnkqY/yt-icon-red-digital.png" alt="YouTube icon"> YouTube – WayHavenMC
+            </a>
+            <a href="https://www.tiktok.com/@WayHavenMC" target="_blank" rel="noopener">
+              <img src="https://i.postimg.cc/DfMRRvhF/tiktok-icon.png" alt="TikTok icon"> TikTok – Minecraft
+            </a>
+            <a href="https://www.instagram.com/WayHavenMc" target="_blank" rel="noopener">
+              <img src="https://i.postimg.cc/SKjmcZ7t/Instagram-Glyph-Gradient.png" alt="Instagram icon"> Instagram – Minecraft
+            </a>
+          </div>
+          <div class="faq-widget">
+  <h4 style="margin:0 0 12px 0; color:var(--gold); font-weight:800; text-align:center;">Have any question?</h4>
+  <p style="margin:0 0 14px 0; color:var(--muted); font-size:0.92rem; text-align:center; line-height:1.5;">
+    Check out our FAQ section or contact our support team for help!
+  </p>
+  <button class="faq-redirect-btn" onclick="navTo('/support', document.getElementById('redirectSupport'))">
+    View FAQ →
+  </button>
+</div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- SUPPORT SECTION -->
+    <div id="support" class="page-section" style="display:none;">
+      <div class="support-box">
+        <h1>🎫 Support Center</h1>
+        <p>Need help with Way Haven? Our dedicated staff team is here to assist you! Join our Discord server and create a support ticket for personalized assistance.</p>
+        <div style="margin-top:12px; padding:12px; border-radius:10px; background: rgba(88,101,242,0.06); border:1px solid rgba(88,101,242,0.12)">
+          <h3 style="margin:0 0 8px 0; color:var(--gold)">📋 How to Get Support</h3>
+          <p style="margin:0; color:var(--muted); line-height:1.6">
+            1. Join our Discord server<br>2. Navigate to the tickets channel<br>3. Create a new ticket and describe your issue<br>4. Our staff will assist you!
+          </p>
+        </div>
+        <div style="margin-top:14px; color:var(--muted)">
+          <div class="ticket-channel" style="display:inline-block; padding:10px 12px; border-radius:8px; background:rgba(0,0,0,0.22); border:1px solid rgba(125,211,252,0.18)"># | 🎫 | tickets</div>
+        </div>
+        <a href="https://discord.gg/pWhEzjR5Gq" target="_blank" rel="noopener" class="support-discord">Join Discord</a>
+        <p style="margin-top:12px; color:var(--muted)">Our staff team is available daily and will respond to tickets promptly. Please provide as much detail as possible about your issue for faster resolution.</p>
+      </div>
+        <!-- FAQ SECTION BELOW SUPPORT -->
+<div id="supportFAQ" class="faq-section">
+  <h2>FAQ</h2>
+  <div id="supportFaqList" class="faq-list"></div>
+</div>
+    </div>
+  </div>
+
+  <!-- IP MODAL -->
+  <div id="ipOverlay" class="overlay" aria-hidden="true">
+    <div class="ip-modal" role="dialog" aria-modal="true" aria-labelledby="ipModalTitle">
+      <div id="ipModalTitle" class="title">Join Way Haven</div>
+      <div class="ip" id="modalIp" onclick="copyServerIP()">play.wayhaven.net</div>
+      <div class="desc">Copy the server IP and paste it into Minecraft (Java → Multiplayer → Add Server).</div>
+      <div class="actions">
+        <button class="btn btn-copy" id="copyBtn">Copy Server IP</button>
+        <button class="btn btn-close" id="closeBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+/* === CONFIGURATION === */
+const DEFAULT_ABOUT_VIDEO = 'https://youtu.be/BL1oYVfNMNY?si=f5oyh4FUgwfLdrU8';
+const SERVER_IP = 'play.wayhaven.net';
+const POSTS_PER_PAGE = 3;
+
+/* === GLOBAL STATE === */
+let currentData = [];
+
+/* === NAVIGATION === */
+function navTo(path, btn) {
+  document.querySelectorAll('.redirect-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  try { 
+    window.history.pushState({}, '', path); 
+  } catch(e) { 
+    console.warn('History API error:', e); 
+  }
+
+  const section = (path || '/').replace(/^\//, '') || 'home';
+  document.querySelectorAll('.page-section').forEach(s => s.style.display = 'none');
+  const target = document.getElementById(section);
+  if (target) {
+    target.style.display = 'block';
+  } else {
+    const homeEl = document.getElementById('home');
+    if (homeEl) homeEl.style.display = 'block';
+  }
+}
+
+window.addEventListener('popstate', () => {
+  const section = window.location.pathname.replace('/', '') || 'home';
+  document.querySelectorAll('.page-section').forEach(s => s.style.display = 'none');
+  const target = document.getElementById(section);
+  if (target) {
+    target.style.display = 'block';
+  } else {
+    const homeEl = document.getElementById('home');
+    if (homeEl) homeEl.style.display = 'block';
+  }
+
+  document.querySelectorAll('.redirect-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('redirect' + (section.charAt(0).toUpperCase() + section.slice(1)));
+  if (btn) btn.classList.add('active');
+});
+
+function showSectionFromPathOnce() {
+  const section = window.location.pathname.replace('/', '') || 'home';
+  document.querySelectorAll('.page-section').forEach(s => s.style.display = 'none');
+  const target = document.getElementById(section) || document.getElementById('home');
+  if (target) target.style.display = 'block';
+  
+  document.querySelectorAll('.redirect-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.getElementById('redirect' + (section.charAt(0).toUpperCase() + section.slice(1)));
+  if (btn) btn.classList.add('active');
+}
+
+/* === PLAYER STATUS === */
+async function updatePlayers(){
+  const el = document.getElementById('playersOnline');
+  if (!el) return;
+  el.textContent = '...';
+
+  try {
+    let res = await fetch('/api/mcstatus', { cache: 'no-store' });
+    if (!res.ok) {
+      res = await fetch('https://api.mcstatus.io/v2/status/java/' + encodeURIComponent(SERVER_IP), { cache: 'no-store' });
+    }
+    if (!res.ok) throw new Error('network ' + res.status);
+    const data = await res.json();
+    if (data && data.online) {
+      const online = data.players && typeof data.players.online === 'number' ? data.players.online : 0;
+      const max = data.players && typeof data.players.max === 'number' ? data.players.max : '?';
+      el.textContent = `${online} / ${max}`;
+    } else {
+      el.textContent = 'OFFLINE';
+    }
+  } catch (err) {
+    console.warn('player status error', err);
+    el.textContent = '—';
+  }
+}
+
+/* === DISCORD COUNT === */
+async function updateDiscordCount() {
+  try {
+    const res = await fetch('/api/discord/online');
+    const data = await res.json();
+    const numberEl = document.getElementById('discordNumber');
+    if (!numberEl) return;
+
+    if (data.enabled) {
+      numberEl.textContent = data.count.toString();
+    } else {
+      numberEl.textContent = '—';
+    }
+  } catch (err) {
+    console.warn('Failed to fetch Discord count:', err);
+    const numberEl = document.getElementById('discordNumber');
+    if (numberEl) numberEl.textContent = '—';
+  }
+}
+
+/* === IP MODAL === */
+function openIpModal() {
+  const ipOverlay = document.getElementById('ipOverlay');
+  const modalIp = document.getElementById('modalIp');
+  const copyBtn = document.getElementById('copyBtn');
+  
+  if (!ipOverlay || !modalIp) return;
+  
+  modalIp.textContent = SERVER_IP;
+  ipOverlay.classList.add('show');
+  ipOverlay.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  if (copyBtn) copyBtn.focus();
+}
+
+function closeIpModal() {
+  const ipOverlay = document.getElementById('ipOverlay');
+  if (!ipOverlay) return;
+  
+  ipOverlay.classList.remove('show');
+  ipOverlay.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+async function copyServerIP() {
+  const copyBtn = document.getElementById('copyBtn');
+  if (!copyBtn) return;
+  
+  const original = copyBtn.textContent;
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(SERVER_IP);
+      copyBtn.textContent = 'Copied!';
+      setTimeout(() => copyBtn.textContent = original, 1400);
+    } else {
+      fallbackCopy(copyBtn, original);
+    }
+  } catch(e) {
+    fallbackCopy(copyBtn, original);
+  }
+}
+
+function fallbackCopy(btn, originalText) {
+  const ta = document.createElement('textarea');
+  ta.value = SERVER_IP;
+  ta.setAttribute('readonly', '');
+  ta.style.position = 'fixed';
+  ta.style.left = '-9999px';
+  document.body.appendChild(ta);
+  ta.select();
+  ta.setSelectionRange(0, ta.value.length);
+  try {
+    const ok = document.execCommand('copy');
+    if (ok) {
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = originalText, 1400);
+    } else {
+      throw new Error('copy failed');
+    }
+  } catch(err) {
+    alert('Copy failed – please copy manually: ' + SERVER_IP);
+  }
+  ta.remove();
+}
+
+/* === BLOG FUNCTIONS === */
+async function fetchBlogsFromAPI() {
+  try {
+    const res = await fetch('/api/blogs', { cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        return data;
+      }
+    }
+  } catch (e) {
+    console.error('Blog fetch error:', e);
+  }
+  return [];
+}
+
+function sortNewestFirst(posts) {
+  return posts.slice().sort((a, b) => {
+    const da = a.createdAt || a.date || '';
+    const db = b.createdAt || b.date || '';
+    return new Date(db) - new Date(da);
+  });
+}
+
+function createBlogCard(post) {
+  const card = document.createElement('article');
+  card.className = 'blog-card';
+  
+  const thumb = document.createElement('div');
+  thumb.className = 'thumb';
+  thumb.style.backgroundImage = `url('${post.image || "https://i.postimg.cc/8z6k9qv1/mc-siege.jpg"}')`;
+  thumb.setAttribute('role', 'img');
+  thumb.setAttribute('aria-label', post.title || 'post image');
+  
+  const content = document.createElement('div');
+  content.className = 'content';
+  
+  const meta = document.createElement('div');
+  meta.className = 'meta';
+  const dt = post.createdAt ? new Date(post.createdAt) : (post.date ? new Date(post.date) : null);
+  meta.textContent = 'Server Updates - ' + (dt ? dt.toLocaleString(undefined, { month:'short', day:'numeric', year:'numeric', hour:'numeric', minute:'2-digit' }) : (post.date || ''));
+  
+  content.appendChild(meta);
+  
+  if (post.pinned === true) {
+    const badge = document.createElement('div');
+    badge.className = 'pinned-badge';
+    badge.textContent = 'Pinned';
+    content.appendChild(badge);
+  }
+  
+  const title = document.createElement('h3');
+  title.textContent = post.title || '';
+  
+  const excerpt = document.createElement('p');
+  excerpt.textContent = post.excerpt || '';
+  
+  content.appendChild(title);
+  content.appendChild(excerpt);
+  card.appendChild(thumb);
+  card.appendChild(content);
+  
+  return card;
+}
+
+function renderPagination(totalPages, currentPage) {
+  const paginationEl = document.getElementById('pagination');
+  if (!paginationEl) return;
+  
+  paginationEl.innerHTML = '';
+  if (totalPages <= 1) {
+    paginationEl.setAttribute('aria-hidden', 'true');
+    return;
+  }
+  paginationEl.setAttribute('aria-hidden', 'false');
+  
+  // Previous button
+  if (currentPage > 1) {
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'page-btn arrow-btn';
+    prevBtn.innerHTML = '‹';
+    prevBtn.setAttribute('aria-label', 'Previous page');
+    prevBtn.addEventListener('click', () => renderBlogs(currentData, currentPage - 1));
+    paginationEl.appendChild(prevBtn);
+  }
+  
+  // Current page display (styled like active page)
+  const pageDisplay = document.createElement('div');
+  pageDisplay.className = 'page-number-display';
+  pageDisplay.textContent = currentPage;
+  pageDisplay.setAttribute('aria-label', `Page ${currentPage} of ${totalPages}`);
+  paginationEl.appendChild(pageDisplay);
+  
+  // Next button
+  if (currentPage < totalPages) {
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'page-btn arrow-btn';
+    nextBtn.innerHTML = '›';
+    nextBtn.setAttribute('aria-label', 'Next page');
+    nextBtn.addEventListener('click', () => renderBlogs(currentData, currentPage + 1));
+    paginationEl.appendChild(nextBtn);
+  }
+}
+
+async function renderBlogs(postsPage = null, page = 1) {
+  const blogListEl = document.getElementById('blogList');
+  const pinnedArea = document.getElementById('pinnedArea');
+  const paginationEl = document.getElementById('pagination');
+  
+  if (!blogListEl || !pinnedArea) return;
+  
+  if (!postsPage) {
+    let posts = await fetchBlogsFromAPI();
+    posts = sortNewestFirst(posts);
+    currentData = posts;
+  } else {
+    currentData = postsPage;
+  }
+  
+  const posts = currentData;
+  blogListEl.innerHTML = '';
+  pinnedArea.innerHTML = '';
+
+  if (!posts || posts.length === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'card';
+    empty.textContent = 'No announcements yet.';
+    blogListEl.appendChild(empty);
+    if (paginationEl) paginationEl.innerHTML = '';
+    return;
+  }
+
+  const pinned = posts.filter(p => p.pinned === true);
+  const nonPinned = posts.filter(p => p.pinned !== true);
+
+  if (pinned.length > 0) {
+    pinned.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    pinned.forEach(p => {
+      const card = createBlogCard(p);
+      pinnedArea.appendChild(card);
+      requestAnimationFrame(() => {
+        setTimeout(() => card.classList.add('show'), 40);
+      });
+    });
+  } else {
+    pinnedArea.innerHTML = '<div class="card" style="color:var(--muted); padding:12px;">No pinned announcements.</div>';
+  }
+
+  const totalPages = Math.max(1, Math.ceil(nonPinned.length / POSTS_PER_PAGE));
+  page = Math.min(Math.max(1, page), totalPages);
+  const startIdx = (page - 1) * POSTS_PER_PAGE;
+  const endIdx = startIdx + POSTS_PER_PAGE;
+  const pagePosts = nonPinned.slice(startIdx, endIdx);
+  
+  pagePosts.forEach((p, i) => {
+    const node = createBlogCard(p);
+    blogListEl.appendChild(node);
+    requestAnimationFrame(() => {
+      setTimeout(() => node.classList.add('show'), i * 40);
+    });
+  });
+  
+  renderPagination(totalPages, page);
+}
+
+/* === FAQ FUNCTIONS === */
+async function fetchFAQsFromAPI() {
+  try {
+    const res = await fetch('/api/faqs', { cache: 'no-store' });
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        return data;
+      }
+    }
+  } catch (e) {
+    console.error('FAQ fetch error:', e);
+  }
+  return [];
+}
+
+function sortNewestFirstFAQs(faqs) {
+  return faqs.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+}
+
+function createFAQItem(faq) {
+  const item = document.createElement('div');
+  item.className = 'faq-item';
+  item.innerHTML = `
+    <div class="faq-question" role="button" tabindex="0" aria-expanded="false">
+      ${faq.question}
+    </div>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">${faq.answer.replace(/\n/g, '<br>')}</div>
+    </div>
+  `;
+  
+  const questionEl = item.querySelector('.faq-question');
+  const answerEl = item.querySelector('.faq-answer');
+  
+  const toggleFAQ = () => {
+    const isExpanded = item.classList.toggle('expanded');
+    questionEl.setAttribute('aria-expanded', isExpanded);
+    answerEl.style.maxHeight = isExpanded ? `${answerEl.scrollHeight}px` : '0';
+  };
+  
+  questionEl.addEventListener('click', toggleFAQ);
+  questionEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleFAQ();
+    }
+  });
+  
+  return item;
+}
+
+async function renderFAQs() {
+  const faqListEl = document.getElementById('faqList');
+  if (!faqListEl) return;
+  
+  faqListEl.innerHTML = '';
+  let faqs = await fetchFAQsFromAPI();
+  faqs = sortNewestFirstFAQs(faqs);
+  
+  if (faqs.length === 0) {
+    const empty = document.createElement('div');
+    empty.style.textAlign = 'center';
+    empty.style.color = 'var(--muted)';
+    empty.style.padding = '20px';
+    empty.textContent = 'No FAQs yet.';
+    faqListEl.appendChild(empty);
+    return;
+  }
+  
+  faqs.forEach((faq, i) => {
+    const item = createFAQItem(faq);
+    faqListEl.appendChild(item);
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        item.style.opacity = '1';
+        item.style.transform = 'translateY(0)';
+      }, i * 60);
+    });
+    item.style.opacity = '0';
+    item.style.transform = 'translateY(10px)';
+    item.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+  });
+}
+
+async function renderSupportFAQs() {
+  const faqListEl = document.getElementById('supportFaqList');
+  if (!faqListEl) return;
+  
+  faqListEl.innerHTML = '';
+  let faqs = await fetchFAQsFromAPI();
+  faqs = sortNewestFirstFAQs(faqs);
+
+  if (faqs.length === 0) {
+    const empty = document.createElement('div');
+    empty.style.textAlign = 'center';
+    empty.style.color = 'var(--muted)';
+    empty.style.padding = '20px';
+    empty.textContent = 'No FAQs yet.';
+    faqListEl.appendChild(empty);
+    return;
+  }
+
+  faqs.forEach((faq, i) => {
+    const item = createFAQItem(faq);
+    faqListEl.appendChild(item);
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        item.style.opacity = '1';
+        item.style.transform = 'translateY(0)';
+      }, i * 60);
+    });
+    item.style.opacity = '0';
+    item.style.transform = 'translateY(10px)';
+    item.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+  });
+}
+
+// Update the DOMContentLoaded event listener to call renderSupportFAQs
+document.addEventListener('DOMContentLoaded', renderSupportFAQs);
+
+/* === VIDEO FUNCTIONS === */
+function setAboutVideo(url) {
+  if (!url) {
+    localStorage.removeItem('wayhaven_about_video');
+  } else {
+    localStorage.setItem('wayhaven_about_video', url);
+  }
+  updateVideoArea();
+}
+
+function extractYouTubeEmbed(url) {
+  try {
+    const u = new URL(url);
+    if (u.hostname.includes('youtube.com')) {
+      const v = u.searchParams.get('v');
+      if (v) return 'https://www.youtube.com/embed/' + v;
+    }
+    if (u.hostname.includes('youtu.be')) {
+      const id = u.pathname.slice(1);
+      if (id) return 'https://www.youtube.com/embed/' + id;
+    }
+    return null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function updateVideoArea() {
+  const videoArea = document.getElementById('videoArea');
+  const videoEmptyLabel = document.getElementById('videoEmptyLabel');
+  if (!videoArea) return;
+  
+  videoArea.innerHTML = '';
+  const stored = localStorage.getItem('wayhaven_about_video');
+  const url = stored || DEFAULT_ABOUT_VIDEO || '';
+  
+  if (!url) {
+    if (videoEmptyLabel) videoArea.appendChild(videoEmptyLabel);
+    return;
+  }
+  
+  const embed = extractYouTubeEmbed(url);
+  if (!embed) {
+    const p = document.createElement('div');
+    p.style.color = 'var(--muted)';
+    p.style.padding = '10px';
+    p.textContent = 'Invalid or unsupported video URL. Paste a YouTube link.';
+    videoArea.appendChild(p);
+    return;
+  }
+  
+  const ifr = document.createElement('iframe');
+  ifr.src = embed + '?rel=0';
+  ifr.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+  ifr.setAttribute('allowfullscreen', '');
+  videoArea.appendChild(ifr);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const languageSelect = document.getElementById('footerLanguageSelect');
+  
+  // Load saved language preference
+  const savedLang = localStorage.getItem('wayhaven_language') || 'en';
+  if (languageSelect) {
+    languageSelect.value = savedLang;
+    
+    // Save language preference on change
+    languageSelect.addEventListener('change', (e) => {
+      const selectedLang = e.target.value;
+      localStorage.setItem('wayhaven_language', selectedLang);
+      
+      // Here you can add language translation logic
+      console.log('Language changed to:', selectedLang);
+      
+      // Optional: Show notification
+      alert(`Language changed to ${selectedLang.toUpperCase()}. Full translation coming soon!`);
+    });
+  }
+});
+
+/* === EVENT LISTENERS === */
+document.addEventListener('DOMContentLoaded', () => {
+  const redirectHome = document.getElementById('redirectHome');
+  if (redirectHome) redirectHome.classList.add('active');
+  
+  const headerIP = document.getElementById('headerIP');
+  if (headerIP) {
+    headerIP.addEventListener('click', openIpModal);
+    headerIP.style.cursor = 'pointer';
+  }
+  
+  const closeBtn = document.getElementById('closeBtn');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeIpModal);
+  }
+  
+  const ipOverlay = document.getElementById('ipOverlay');
+  if (ipOverlay) {
+    ipOverlay.addEventListener('click', (e) => {
+      if (e.target === ipOverlay) closeIpModal();
+    });
+  }
+  
+  const copyBtn = document.getElementById('copyBtn');
+  if (copyBtn) {
+    copyBtn.addEventListener('click', copyServerIP);
+  }
+  
+  const copyInlineIp = document.getElementById('copyInlineIp');
+  if (copyInlineIp) {
+    copyInlineIp.addEventListener('click', async () => {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(SERVER_IP);
+          copyInlineIp.textContent = 'Copied';
+          setTimeout(() => copyInlineIp.textContent = 'Copy', 1400);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = SERVER_IP;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          ta.remove();
+          alert('Copied');
+        }
+      } catch(e) {
+        alert('Copy failed – ' + SERVER_IP);
+      }
+    });
+  }
+  
+  renderBlogs();
+  renderFAQs();
+  updateVideoArea();
+  updatePlayers();
+  updateDiscordCount();
+  
+  setInterval(updatePlayers, 60000);
+  setInterval(updateDiscordCount, 60000);
+  
+  window.Wayhaven = {
+    setTrailer: setAboutVideo
+  };
+});
+
+window.addEventListener('load', () => setTimeout(showSectionFromPathOnce, 40));
+
+document.addEventListener('contextmenu', function(e) {
+  if (e.target && e.target.closest && e.target.closest('#headerIP')) return;
+  if (e.target && e.target.closest && e.target.closest('#modalIp')) return;
+  e.preventDefault();
+});
+</script>
+<footer class="site-footer">
+  <!-- Top Banner Section -->
+  <div class="footer-banner">
+    <img src="https://i.postimg.cc/yWCxkVMd/wayhvaenbg.png" alt="Wayhaven Banner" class="footer-banner-img">
+    <div class="footer-banner-overlay">
+      <h2 class="footer-banner-text">Are you ready to be the best?</h2>
+    </div>
+  </div>
+
+  <!-- Footer Content -->
+  <div class="footer-content">
+    <div class="footer-grid">
+      <!-- About Section -->
+      <div class="footer-section">
+        <h3 class="footer-heading">About</h3>
+        <p class="footer-about-text">The Latest and Greatest Worldbuilding Community!</p>
+        <p class="footer-about-desc">Create nations, engage in diplomacy and war, and shape your legacy in Wayhaven.</p>
+      </div>
+
+      <!-- Quick Menu Section -->
+      <div class="footer-section">
+        <h3 class="footer-heading">Quick Menu</h3>
+        <ul class="footer-menu">
+          <li><a href="#" onclick="navTo('/home', document.getElementById('redirectHome')); return false;">Home</a></li>
+          <li><a href="/store">Store</a></li>
+          <li><a href="/map">Map</a></li>
+          <li><a href="#" onclick="navTo('/support', document.getElementById('redirectSupport')); return false;">Support</a></li>
+        </ul>
+      </div>
+
+      <!-- Social Media Section -->
+      <div class="footer-section">
+        <h3 class="footer-heading">Social Media</h3>
+        <ul class="footer-social">
+          <li>
+            <a href="https://discord.gg/pWhEzjR5Gq" target="_blank" rel="noopener">
+              <img src="https://i.postimg.cc/kMS027v9/discord-logo.png" alt="Discord" class="footer-social-icon">
+              Discord
+            </a>
+          </li>
+          <li>
+            <a href="https://www.youtube.com/@WayHavenMC" target="_blank" rel="noopener">
+              <img src="https://i.postimg.cc/TPhTnkqY/yt-icon-red-digital.png" alt="YouTube" class="footer-social-icon">
+              YouTube
+            </a>
+          </li>
+          <li>
+            <a href="https://www.tiktok.com/@WayHavenMC" target="_blank" rel="noopener">
+              <img src="https://i.postimg.cc/DfMRRvhF/tiktok-icon.png" alt="TikTok" class="footer-social-icon">
+              TikTok
+            </a>
+          </li>
+          <li>
+            <a href="https://www.instagram.com/WayHavenMc" target="_blank" rel="noopener">
+              <img src="https://i.postimg.cc/SKjmcZ7t/Instagram-Glyph-Gradient.png" alt="Instagram" class="footer-social-icon">
+              Instagram
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact Section -->
+      <div class="footer-section">
+        <h3 class="footer-heading">Contact</h3>
+        <div class="footer-contact">
+          <div class="footer-contact-item">
+            <img src="https://i.postimg.cc/kMS027v9/discord-logo.png" alt="Discord" class="footer-contact-icon">
+            <a href="https://discord.gg/pWhEzjR5Gq" target="_blank" rel="noopener">Discord Server</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <p>All rights reserved. © 2025 Wayhaven</p>
+      <p class="footer-powered">Server IP: <strong>play.wayhaven.net</strong></p>
+    </div>
+  </div>
+  <div class="admin-login-fab" aria-label="Admin login">
+  <a href="/admin/login" rel="noopener">Login</a>
+</div>
+</footer>
+</body>
+</html>

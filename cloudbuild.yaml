@@ -5,9 +5,6 @@ steps:
   - name: 'gcr.io/cloud-builders/npm'
     args: ['run', 'build']
 
-    options:
-    logging: CLOUD_LOGGING_ONLY
-
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
@@ -17,3 +14,6 @@ steps:
         '--region', 'us-central1',
         '--allow-unauthenticated',
       ]
+
+options:
+  logging: CLOUD_LOGGING_ONLY

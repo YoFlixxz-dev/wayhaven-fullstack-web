@@ -5,12 +5,14 @@ steps:
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     entrypoint: gcloud
     args:
-      [
-        'run', 'deploy', 'wayhaven-backend',
-        '--source', '.',
-        '--region', 'us-central1',
-        '--allow-unauthenticated',
-      ]
+    [
+      'run', 'deploy', 'wayhaven-backend',
+      '--source', '.',
+      '--region', 'us-central1',
+      '--allow-unauthenticated',
+      '--quiet',
+    ]
+
 
 options:
   logging: CLOUD_LOGGING_ONLY

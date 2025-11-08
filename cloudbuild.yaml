@@ -1,0 +1,19 @@
+steps:
+  # Step 1: Install dependencies (from package.json in repo root)
+  - name: 'gcr.io/cloud-builders/npm'
+    args: ['install']
+
+  # Step 2: Deploy to Cloud Run directly from this directory
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      [
+        'run', 'deploy', 'wayhaven-web',
+        '--source', '.',
+        '--platform', 'managed',
+        '--region', 'us-central1',
+        '--allow-unauthenticated'
+      ]
+
+images:
+  - 'gcr.io/$PROJECT_ID/wayhaven-web'

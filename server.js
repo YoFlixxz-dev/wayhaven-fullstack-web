@@ -13,7 +13,7 @@ const { v4: uuidv4 } = require('uuid');
 const session = require('express-session');
 
 // Environment validation
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 const ADMIN_USER = process.env.ADMIN_USER || 'admin';
 const ADMIN_PASS = process.env.ADMIN_PASS || 'changeme';
 const SESSION_SECRET = process.env.SESSION_SECRET || 'dev-secret-change-in-production';
